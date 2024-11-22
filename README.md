@@ -10,5 +10,6 @@ Universidad Nacional del Comahue
 
 # Integrantes del Grupo
 
-**Ezequiel Lagos** - Legajo 4270 - mail: lagosezequiel10@gmail.com - Github: lgzzzzzz
-**Lucas Contreras** - Legajo 5094 . mail: Github:
+- **Ezequiel Lagos** - Legajo 4270 - mail: lagosezequiel10@gmail.com - Github: lgzzzzzz
+- **Lucas Contreras** - Legajo 5094 . mail: Github:
+ndeah
