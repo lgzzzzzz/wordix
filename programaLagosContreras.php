@@ -195,9 +195,12 @@ function solicitarJugador()
 /**************************************/
 
 // Declaración de variables:
+// INT $opcionUsuario
+// INT[] $nroPalabrasUsadas
 $opcionUsuario = 0;
 $nroPalabrasUsadas = [];
 
+// ARRAY $coleccionPalabras, $coleccionPartidas, $estadisticas
 $coleccionPalabras = [];
 $coleccionPartidas = [];
 $estadisticas = [];
