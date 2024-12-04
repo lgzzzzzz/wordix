@@ -17,22 +17,24 @@ include_once("wordix.php");
 
 /**
  * Retorna array de partidas.
- * @return array
+ * @return array $coleccionPartidas
  */
 function cargarPartidas()
 {
+    //ARRAY $coleccionPartidas
     $coleccionPartidas = [
-        ["palabraWordix" => "QUESO", "jugador" => "majo", "intentos" => 0, "puntaje" => 0],
-        ["palabraWordix" => "CASAS", "jugador" => "rudolf", "intentos" => 3, "puntaje" => 14],
-        ["palabraWordix" => "QUESO", "jugador" => "pink2000", "intentos" => 6, "puntaje" => 10],
-        ["palabraWordix" => "MUJER", "jugador" => "majo", "intentos" => 3, "puntaje" => 13],
-        ["palabraWordix" => "RASGO", "jugador" => "pink2000", "intentos" => 5, "puntaje" => 12],
-        ["palabraWordix" => "PISOS", "jugador" => "pink2000", "intentos" => 1, "puntaje" => 17],
-        ["palabraWordix" => "RASGO", "jugador" => "pink2000", "intentos" => 5, "puntaje" => 12],
-        ["palabraWordix" => "RASGO", "jugador" => "pink2000", "intentos" => 2, "puntaje" => 15],
-        ["palabraWordix" => "FUEGO", "jugador" => "rudolf", "intentos" => 6, "puntaje" => 8],
-        ["palabraWordix" => "TINTO", "jugador" => "rudolf", "intentos" => 3, "puntaje" => 15]
+        ["palabraWordix" => "QUESO", "jugador" => "majo",       "intentos" => 0, "puntaje" => 0],
+        ["palabraWordix" => "CASAS", "jugador" => "rudolf",     "intentos" => 3, "puntaje" => 14],
+        ["palabraWordix" => "QUESO", "jugador" => "pink2000",   "intentos" => 6, "puntaje" => 10],
+        ["palabraWordix" => "MUJER", "jugador" => "majo",       "intentos" => 3, "puntaje" => 13],
+        ["palabraWordix" => "RASGO", "jugador" => "pink2000",   "intentos" => 5, "puntaje" => 12],
+        ["palabraWordix" => "PISOS", "jugador" => "pink2000",   "intentos" => 1, "puntaje" => 17],
+        ["palabraWordix" => "RASGO", "jugador" => "pink2000",   "intentos" => 5, "puntaje" => 12],
+        ["palabraWordix" => "RASGO", "jugador" => "pink2000",   "intentos" => 2, "puntaje" => 15],
+        ["palabraWordix" => "FUEGO", "jugador" => "rudolf",     "intentos" => 6, "puntaje" => 8],
+        ["palabraWordix" => "TINTO", "jugador" => "rudolf",     "intentos" => 3, "puntaje" => 15]
     ];
+    //Retorna el arreglo
     return $coleccionPartidas;
 }
 
@@ -40,10 +42,12 @@ function cargarPartidas()
  * Carga datos de la coleccion de partidas y los guarda en un array aparte
  * @param array $partidas
  * @param string $jugador
- * @return array
+ * @return array 
  */
 function cargarResumen($partidas, $jugador)
 {
+    //ARRAY $estadisticas, $jugador
+    //INT $partida, $estadisticas
     // Inicializar el arreglo de estadísticas para el jugador
     $estadisticas = [
         $jugador => [
@@ -96,6 +100,7 @@ function cargarResumen($partidas, $jugador)
  */
 function cargarPalabras()
 {
+    //ARRAY $coleccionPalabras
     $coleccionPalabras = [
         "MUJER",
         "QUESO",
@@ -113,7 +118,7 @@ function cargarPalabras()
         "PIANO",
         "PISOS"
     ];
-
+    //Retorna el arreglo
     return $coleccionPalabras;
 }
 
@@ -140,7 +145,9 @@ function seleccionarOpcion()
  */
 function comparar($a, $b)
 {
+    //Abrimos una alternativa, donde la clave de $a 'jugador' tiene que ser estrictamente igual a $b
     if ($a['jugador'] === $b['jugador']) {
+        //strcmp — Comparación de string segura a nivel binario
         return strcmp($a['palabraWordix'], $b['palabraWordix']);
     }
     return strcmp($a['jugador'], $b['jugador']);
@@ -163,25 +170,37 @@ function ordenarPartidas($partidas)
  */
 function mostrarResumen($estadisticas, $jugador)
 {
+    //Asignamos el valor a $estJugador 
     $estJugador = $estadisticas[$jugador];
+    //Utilizamos las functions para darle color al texto
     escribirVerde("\n***************************************\n");
     escribirVerde("Jugador: " . $jugador . "\n");
     escribirVerde("Partidas: " . $estJugador["partidas"] . "\n");
     escribirVerde("Puntaje total: " . $estJugador["puntajeTotal"] . "\n");
     escribirVerde("Victorias: " . $estJugador["victorias"] . "\n");
     escribirVerde("Porcentaje victorias: " . calcPorcVictorias($estadisticas, $jugador) . "\n");
-
+    //Abrimos un bucle for que se dentra cuando $i sea igual a la cantidad de indices de $estJugador
     for ($i = 0; $i < count($estJugador["adivinadas"]); $i++) {
         escribirVerde("Intento " . $i + 1 . ": " . $estJugador["adivinadas"]["intento" . $i + 1] . "\n");
     }
     escribirVerde("***************************************\n\n");
 }
-
+/**
+ * Muestra por consola un resumen del jugador seleccionado
+ * @param array $estadisticas
+ * @param string $jugador
+ */
 function solicitarJugador()
 {
+    //STRING $nombre
+    //BOOL $condicion
+    //Abrimos un alternativa que se repita la menos una vez
     do {
+        //Mostramos por pantalla
         echo "Ingresar nombre: ";
+        //Asignamos un valor dado por el usuario a una variable       
         $nombre = trim(fgets(STDIN));
+        //Varificamos si el no
         $condicion = !ctype_alpha($nombre[0]);
         if ($condicion) {
             escribirRojo("La primera letra del nombre ingresado no es una letra.\n");
@@ -211,6 +230,7 @@ $coleccionPalabras = cargarPalabras();
 
 //Proceso:
 do {
+
     $opcion = solicitarNumeroEntre(1, 8);
 
     switch ($opcion) {
