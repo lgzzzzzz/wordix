@@ -30,12 +30,12 @@ function cargarPartidas()
     $coleccionPartidas = [
         ["palabraWordix" => "QUESO", "jugador" => "majo",       "intentos" => 0, "puntaje" => 0],
         ["palabraWordix" => "CASAS", "jugador" => "rudolf",     "intentos" => 3, "puntaje" => 14],
-        ["palabraWordix" => "QUESO", "jugador" => "pink2000",   "intentos" => 6, "puntaje" => 10],
+        ["palabraWordix" => "YUYOS", "jugador" => "pink2000",   "intentos" => 6, "puntaje" => 10],
         ["palabraWordix" => "MUJER", "jugador" => "majo",       "intentos" => 3, "puntaje" => 13],
         ["palabraWordix" => "RASGO", "jugador" => "pink2000",   "intentos" => 5, "puntaje" => 12],
         ["palabraWordix" => "PISOS", "jugador" => "pink2000",   "intentos" => 1, "puntaje" => 17],
-        ["palabraWordix" => "RASGO", "jugador" => "pink2000",   "intentos" => 5, "puntaje" => 12],
-        ["palabraWordix" => "RASGO", "jugador" => "pink2000",   "intentos" => 2, "puntaje" => 15],
+        ["palabraWordix" => "PIANO", "jugador" => "pink2000",   "intentos" => 5, "puntaje" => 12],
+        ["palabraWordix" => "NAVES", "jugador" => "pink2000",   "intentos" => 2, "puntaje" => 15],
         ["palabraWordix" => "FUEGO", "jugador" => "rudolf",     "intentos" => 6, "puntaje" => 8],
         ["palabraWordix" => "TINTO", "jugador" => "rudolf",     "intentos" => 3, "puntaje" => 15]
     ];
@@ -275,10 +275,10 @@ do {
                 $nroPartida = trim(fgets(STDIN));
                 $condicion = $nroPartida < 1 || $nroPartida > count($coleccionPartidas);
                 if ($condicion) {
-                    escribirRojo("ERROR: Partida no encontrada.\n");
+                    escribirRojo("ERROR: Partida no encontrada.\n\n");
                 }
             } while ($condicion);
-            mostrarPartida($coleccionPartidas, $nroPartida);
+            mostrarPartida($coleccionPartidas, $nroPartida - 1);
 
             break;
         case 4: // 4) Mostrar la primer partida ganadora

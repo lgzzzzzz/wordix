@@ -268,7 +268,7 @@ function mostrarPartida($partidas, $nro)
 {
     //invocamos las functions que cambia de color el texto 
     escribirVerde("\n*********************************************\n");
-    escribirVerde("Partida WORDIX N°" . $nro . ": palabra " . $partidas[$nro]["palabraWordix"] ."\n");
+    escribirVerde("Partida WORDIX N°" . $nro+1 . ": palabra " . $partidas[$nro]["palabraWordix"] ."\n");
     escribirVerde("Jugador: " . $partidas[$nro]["jugador"] ."\n");
     escribirVerde("Puntaje: " . $partidas[$nro]["puntaje"] . " puntos\n");
     //Abrimos una alternativa donde evaluamos si el numero del puntaje es igual a 0
