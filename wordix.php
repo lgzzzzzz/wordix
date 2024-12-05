@@ -35,19 +35,19 @@ const ESTADO_LETRA_PERTENECE = "pertenece";
 function mostrarPrimerIndiceGanado($partidas, $jugador)
 {
     //Inicializamos la variable
+    $indice = -1;
     $i = 0;
     //Abrimos una repetitiva que se dentra cuando $i sea mayor a la cantidad de indices count($partidas)
-    while ($i < count($partidas)) {
+    while ($i < count($partidas) && $indice == -1) {
         $partida = $partidas[$i];
         //Abrimos una condicion donde evaluamos si el jugador es igual a jugador de ingreso de la function y si tambien el puntaje es mayor a 0
         if ($partida["jugador"] === $jugador && $partida["puntaje"] > 0) {
-            //retornamos el indice de la primera partida ganada
-            return $i;
+            $indice = $i;
         }
         //Por cada repeticion sumamos 1
         $i++;
     }
-    return -1;
+    return $indice;
 }
 
 /**

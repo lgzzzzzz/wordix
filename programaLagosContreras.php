@@ -1,6 +1,11 @@
 <?php
 include_once("wordix.php");
 
+// FIX
+// - Doble return **HECHO**
+// - Porcentaje **HECHO**
+// - Palabra de 5 letras **HECHO**
+
 /**************************************/
 /***** DATOS DE LOS INTEGRANTES *******/
 /**************************************/
@@ -87,8 +92,7 @@ function cargarResumen($partidas, $jugador)
 
     // Calcular el porcentaje de victorias
     if ($estadisticas[$jugador]["partidas"] > 0) {
-        $estadisticas[$jugador]["porcVictorias"] =
-            ($estadisticas[$jugador]["victorias"] / $estadisticas[$jugador]["partidas"]) * 100;
+        $estadisticas[$jugador]["porcVictorias"] = ($estadisticas[$jugador]["victorias"] / $estadisticas[$jugador]["partidas"]) * 100;
     }
 
     return $estadisticas;
@@ -145,12 +149,14 @@ function seleccionarOpcion()
  */
 function comparar($a, $b)
 {
+    $entero = null;
     //Abrimos una alternativa, donde la clave de $a 'jugador' tiene que ser estrictamente igual a $b
     if ($a['jugador'] === $b['jugador']) {
         //strcmp — Comparación de string segura a nivel binario
-        return strcmp($a['palabraWordix'], $b['palabraWordix']);
+        $entero = strcmp($a['palabraWordix'], $b['palabraWordix']);
     }
-    return strcmp($a['jugador'], $b['jugador']);
+    $entero = strcmp($a['jugador'], $b['jugador']);
+    return $entero;
 }
 
 /**
@@ -178,12 +184,12 @@ function mostrarResumen($estadisticas, $jugador)
     escribirVerde("Partidas: " . $estJugador["partidas"] . "\n");
     escribirVerde("Puntaje total: " . $estJugador["puntajeTotal"] . "\n");
     escribirVerde("Victorias: " . $estJugador["victorias"] . "\n");
-    escribirVerde("Porcentaje victorias: " . calcPorcVictorias($estadisticas, $jugador) . "\n");
+    escribirVerde("Porcentaje victorias: " . number_format($estJugador["porcVictorias"], 2) . "%\n");
     //Abrimos un bucle for que se dentra cuando $i sea igual a la cantidad de indices de $estJugador
     for ($i = 0; $i < count($estJugador["adivinadas"]); $i++) {
         escribirVerde("Intento " . $i + 1 . ": " . $estJugador["adivinadas"]["intento" . $i + 1] . "\n");
     }
-    escribirVerde("***************************************\n\n");
+    escribirVerde("***************************************\n");
 }
 /**
  * Muestra por consola un resumen del jugador seleccionado
@@ -236,6 +242,7 @@ do {
     switch ($opcion) {
         case 1: // 1) Jugar al wordix con una palabra elegida
 
+            echo "\n";
             $nombreJugador = solicitarJugador();
             do {
                 echo "Elegir nro de palabra: ";
@@ -261,12 +268,14 @@ do {
             $coleccionPartidas[] = jugarWordix($coleccionPalabras[$nroPalabraActual], $nombreJugador);
             break;
         case 3: // 3) Mostrar una partida
+
+            echo "\n";
             do {
                 echo "Ingresar nro de partida: ";
                 $nroPartida = trim(fgets(STDIN));
                 $condicion = $nroPartida < 1 || $nroPartida > count($coleccionPartidas);
                 if ($condicion) {
-                    echo escribirRojo("ERROR: Partida no encontrada.\n");
+                    escribirRojo("ERROR: Partida no encontrada.\n");
                 }
             } while ($condicion);
             mostrarPartida($coleccionPartidas, $nroPartida);
@@ -281,8 +290,7 @@ do {
                 mostrarPartida($coleccionPartidas, $indicePrimerPartidaGanada);
                 break;
             }
-            escribirRojo("Todavia no ha ganado ninguna partida.\n");
-
+            escribirRojo("\nTodavia no ha ganado ninguna partida.\n");
             break;
         case 5: // 5) Mostrar resumen de jugador
 
@@ -296,8 +304,15 @@ do {
             break;
         case 7: // 7) Agregar una palabra de 5 letras a Wordix
 
-            echo "Ingresar palabra de 5 letras: \n";
-            $palabraIngresada = trim(fgets(STDIN));
+            echo "\n";
+            do {
+                echo "Ingresar palabra de 5 letras: ";
+                $palabraIngresada = trim(fgets(STDIN));
+                $condicion = strlen($palabraIngresada) != 5 || !ctype_alpha($palabraIngresada);
+                if ($condicion) {
+                    escribirRojo("ERROR: La palabra debe ser de 5 letras.\n\n");
+                }
+            } while ($condicion);
 
             $coleccionPalabras = agregarPalabra($coleccionPalabras, $palabraIngresada);
             print_r($coleccionPalabras);
