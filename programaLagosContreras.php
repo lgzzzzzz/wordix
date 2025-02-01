@@ -39,7 +39,6 @@ function cargarPartidas()
         ["palabraWordix" => "FUEGO", "jugador" => "rudolf",     "intentos" => 6, "puntaje" => 8],
         ["palabraWordix" => "TINTO", "jugador" => "rudolf",     "intentos" => 3, "puntaje" => 15]
     ];
-    //Retorna el arreglo
     return $coleccionPartidas;
 }
 
@@ -51,8 +50,8 @@ function cargarPartidas()
  */
 function cargarResumen($partidas, $jugador)
 {
-    //ARRAY $estadisticas, $jugador
-    //INT $partida, $estadisticas
+    // ARRAY $estadisticas, $jugador
+    // INT $partida, $estadisticas
     // Inicializar el arreglo de estadísticas para el jugador
     $estadisticas = [
         $jugador => [
@@ -122,7 +121,6 @@ function cargarPalabras()
         "PIANO",
         "PISOS"
     ];
-    //Retorna el arreglo
     return $coleccionPalabras;
 }
 
@@ -150,9 +148,9 @@ function seleccionarOpcion()
 function comparar($a, $b)
 {
     $entero = null;
-    //Abrimos una alternativa, donde la clave de $a 'jugador' tiene que ser estrictamente igual a $b
+    // Abrimos una alternativa, donde la clave de $a 'jugador' tiene que ser estrictamente igual a $b
     if ($a['jugador'] === $b['jugador']) {
-        //strcmp — Comparación de string segura a nivel binario
+        // strcmp — Comparación de string segura a nivel binario
         $entero = strcmp($a['palabraWordix'], $b['palabraWordix']);
     }
     $entero = strcmp($a['jugador'], $b['jugador']);
@@ -176,16 +174,16 @@ function ordenarPartidas($partidas)
  */
 function mostrarResumen($estadisticas, $jugador)
 {
-    //Asignamos el valor a $estJugador 
+    // Asignamos el valor a $estJugador 
     $estJugador = $estadisticas[$jugador];
-    //Utilizamos las functions para darle color al texto
+    // Utilizamos las functions para darle color al texto
     escribirVerde("\n***************************************\n");
     escribirVerde("Jugador: " . $jugador . "\n");
     escribirVerde("Partidas: " . $estJugador["partidas"] . "\n");
     escribirVerde("Puntaje total: " . $estJugador["puntajeTotal"] . "\n");
     escribirVerde("Victorias: " . $estJugador["victorias"] . "\n");
     escribirVerde("Porcentaje victorias: " . number_format($estJugador["porcVictorias"], 2) . "%\n");
-    //Abrimos un bucle for que se dentra cuando $i sea igual a la cantidad de indices de $estJugador
+    // Abrimos un bucle for que se dentra cuando $i sea igual a la cantidad de indices de $estJugador
     for ($i = 0; $i < count($estJugador["adivinadas"]); $i++) {
         escribirVerde("Intento " . $i + 1 . ": " . $estJugador["adivinadas"]["intento" . $i + 1] . "\n");
     }
@@ -198,15 +196,13 @@ function mostrarResumen($estadisticas, $jugador)
  */
 function solicitarJugador()
 {
-    //STRING $nombre
-    //BOOL $condicion
-    //Abrimos un alternativa que se repita la menos una vez
+    // STRING $nombre
+    // BOOL $condicion
+    // Abrimos un alternativa que se repita la menos una vez
     do {
-        //Mostramos por pantalla
+        // Mostramos por pantalla
         echo "Ingresar nombre: ";
-        //Asignamos un valor dado por el usuario a una variable       
         $nombre = trim(fgets(STDIN));
-        //Varificamos si el no
         $condicion = !ctype_alpha($nombre[0]);
         if ($condicion) {
             escribirRojo("La primera letra del nombre ingresado no es una letra.\n");
@@ -230,11 +226,11 @@ $coleccionPalabras = [];
 $coleccionPartidas = [];
 $estadisticas = [];
 
-//Inicialización de variables:
+// Inicialización de variables:
 $coleccionPartidas = cargarPartidas();
 $coleccionPalabras = cargarPalabras();
 
-//Proceso:
+// Proceso:
 do {
 
     $opcion = solicitarNumeroEntre(1, 8);
